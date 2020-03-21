@@ -9,13 +9,9 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const (
-	lookupURL string = "https://www.worldometers.info/coronavirus/"
-)
-
 var (
-	coronaData  = []CoronaVirusStat{}
-	overallData = []OverallStat{}
+	CoronaData  = []CoronaVirusStat{}
+	OverallData = []OverallStat{}
 )
 
 type CoronaVirusStat struct {
@@ -55,7 +51,7 @@ func GetOverallData(doc *goquery.Document) {
 			Title: sel.Find("h1").Text(),
 			Data:  convertStrInt(sel.Find("span").Text()),
 		}
-		overallData = append(overallData, data)
+		OverallData = append(OverallData, data)
 	})
 }
 
@@ -81,7 +77,7 @@ func GetCountriesData(doc *goquery.Document) {
 			Serious:          convertStrInt(columns.Eq(7).Text()),
 			TotalCasesOneMil: convertStrInt(columns.Eq(8).Text()),
 		}
-		coronaData = append(coronaData, data)
+		CoronaData = append(CoronaData, data)
 	}
 }
 

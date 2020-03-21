@@ -7,16 +7,20 @@ import (
 	cs "github.com/ryanjb1/coronavirus_stats/coronavirusstats"
 )
 
+const (
+	LookupURL string = "https://www.worldometers.info/coronavirus/"
+)
+
 func PrintOverallData() {
 	fmt.Println("\nCoronavirus data:")
-	for _, overall_item := range cs.overallData {
-		fmt.Printf("%s - %d\n", overall_item.Title, overall_item.Data)
+	for _, overallItem := range cs.OverallData {
+		fmt.Printf("%s - %d\n", overallItem.Title, overallItem.Data)
 	}
 }
 
 func PrintCoronaData() {
 	fmt.Println("\nCountry\t| Total Cases\t| NewCases\t| TotalDeaths\t| NewDeaths\t| TotalRecovered\t| ActiveCases\t| Serious\t| TotalCasesOneMil\t|")
-	for _, item := range cs.coronaData {
+	for _, item := range cs.CoronaData {
 		fmt.Printf("%s\t| %d\t| %d\t| %d\t| %d\t| %d\t| %d\t| %d\t| %d\t|\n",
 			item.Country,
 			item.TotalCases,
@@ -32,7 +36,7 @@ func PrintCoronaData() {
 }
 
 func main() {
-	docs, err := cs.GetURLInfo(cs.lookupURL)
+	docs, err := cs.GetURLInfo(LookupURL)
 	if err != nil {
 		log.Println(err)
 	}
