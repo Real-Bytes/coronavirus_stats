@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.PageTitle}}</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .green_font {
+            background-color: lawngreen;
+        }
+
+        .red_font {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Corona Virus Stats</h1>
+<table>
+    <tr>
+        <th>Country</th>
+        <th>Total Cases</th>
+        <th>New Cases</th>
+        <th>Total Deaths</th>
+        <th>New Deaths</th>
+        <th>Total Recovered</th>
+        <th>Active Cases</th>
+        <th>Serious</th>
+        <th>Total Cases 1 Mil / Pop</th>
+    </tr>
+{{range .Data}}
+    <tr>
+        <th>{{.Country}}</th>
+        <th>{{.TotalCases}}</th>
+        <th class="green_font">{{.NewCases}}</th>
+        <th class="red_font">{{.TotalDeaths}}</th>
+        <th class="green_font">{{.NewDeaths}}</th>
+        <th>{{.TotalRecovered}}</th>
+        <th>{{.ActiveCases}}</th>
+        <th class="red_font">{{.Serious}}</th>
+        <th>{{.TotalCasesOneMil}}</th>
+    </tr>
+{{end}}
+</table>
+
+</body>
+</html>
