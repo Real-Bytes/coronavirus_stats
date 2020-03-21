@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
+	"html/template"
 	"log"
+	"net/http"
 
 	cs "github.com/ryanjb1/coronavirus_stats/coronavirusstats"
 )
@@ -35,6 +38,27 @@ func PrintCoronaData() {
 	}
 }
 
+type CoronaData struct {
+	PageTitle string
+	Data []cs.CoronaVirusStat
+}
+
+func startServer() {
+	r := mux.NewRouter()
+
+	tmpl := template.Must(template.ParseFiles("index.html"))
+
+	r.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+		data := CoronaData{
+			PageTitle: "Corona Stats",
+			Data: cs.CoronaData,
+		}
+		tmpl.Execute(writer, data)
+	})
+
+	http.ListenAndServe(":8888", r)
+}
+
 func main() {
 	docs, err := cs.GetURLInfo(LookupURL)
 	if err != nil {
@@ -44,6 +68,8 @@ func main() {
 	cs.GetOverallData(docs)
 	cs.GetCountriesData(docs)
 
-	PrintOverallData()
-	PrintCoronaData()
+	fmt.Printf("Corona stats live on http://localhost:8888")
+
+	startServer()
+
 }
