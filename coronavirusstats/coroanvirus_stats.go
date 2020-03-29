@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	CoronaData  = []CoronaVirusStat{}
-	OverallData = []OverallStat{}
+	CoronaData  []CoronaVirusStat
+	OverallData []OverallStat
 )
 
 type CoronaVirusStat struct {
